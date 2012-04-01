@@ -53,7 +53,7 @@
 			}
 			
 			<!-- Facebook -->
-			FB.init({ 
+			/*FB.init({ 
 				appId: fbAppId,
 				cookie:true, 
 				status:true,
@@ -103,7 +103,7 @@
 						updateData("fb");
 					}
 				});
-			}
+			}*/
 
 			<!-- Resolution -->
 			data += "screenWidth="+screen.width+"&";
@@ -212,7 +212,7 @@
 				}
 			);
 
-			$("#geoLine a").click(function() {
+			$("#geoButton").click(function() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition( 
 						function (position) {
@@ -243,7 +243,7 @@
 					data: data
 				});
 
-				//console.log("Data ("+type+") is updated successfully!");
+				console.log("Data ("+type+") is updated successfully!");
 			}
 		});
 
@@ -275,15 +275,15 @@
 	</head> 
 	<body>
 		<div class="description">
-			Ez egy BCE kutatás, Ön dönti el, hogy mennyi információt ad meg számunkra, kérjük segítse kutatásunkat az alábbiakkal:
-			<ul>
-				<li id="fbLine"><a href="#">ide</a> kattintva engedélyezi, hogy az oldal hozzáférjen az alapvető Facebook adataihoz</li>
-				<li id="geoLine"><a href="#">ide</a> kattintva engedélyezi, hogy az oldal hozzáférjen a jelenlegi pozíciójához</li>
+			Tisztelt Látogató,<br/>
+			<p>2012.x.x-től 1 hónapig ezen az oldalon a látogatók adatait elmentjük a GKIeNET és egy Corvinusos Phd kutatás keretében. Bizonyos adatokhoz az Ön hozzájárulása szükséges. Az alul látható gombok lenyomásával Ön hozzájárulhat adatai megosztásához. Kérjük járuljon hozzá adatai megosztásával a kutatás sikeréhez. Adatait az intézményi irányelveknek megfelelően tároljuk és harmadik fél számára nem adjuk ki.</p>
+
+			<a href="#" id="fbButton">Facebook adataim megosztása</a> <a href="#" id="geoButton">GeoLokalizációm megosztása</a>
 			</ul>
 		</div>
-		
-		<div id="fb-root"></div>
-		<script src="https://connect.facebook.net/hu_HU/all.js"></script>
+
+		<!--div id="fb-root"></div>
+		<script src="https://connect.facebook.net/hu_HU/all.js"></script-->
 
 		<div id="FontListSWF"></div>
 	</body>

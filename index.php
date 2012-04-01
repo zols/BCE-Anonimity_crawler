@@ -4,6 +4,7 @@ error_reporting(E_ALL|E_STRICT);
 
 set_include_path(	'./application/configs' . PATH_SEPARATOR .
 					'./application/framework' . PATH_SEPARATOR .
+					'./application/plugins' . PATH_SEPARATOR .
 					get_include_path());
 
 // Configs
@@ -18,6 +19,7 @@ setlocale(LC_ALL, LOCALE);
 //require_once('Registry.php');
 //require_once('Logger.php');
 require_once('DatabaseManager.php');
+require_once('FacebookConnect.php');
 
 // Database
 $db = new DatabaseManager();
@@ -37,14 +39,14 @@ switch ($_GET['do']) {
 		}
 
 		$data = array(
-			'hasFbId' => (isset($_POST['hasFbId'])?$_POST['hasFbId']:false),
+			//'hasFbId' => (isset($_POST['hasFbId'])?$_POST['hasFbId']:false),
 			'userId' => $userId,
 			'facebookFirstName' => (isset($_POST['fbFirstName'])?$_POST['fbFirstName']:null),
 			'facebookLastName' => (isset($_POST['fbLastName'])?$_POST['fbLastName']:null),
 			'facebookGender' => (isset($_POST['fbGender'])?$_POST['fbGender']:null),
 			'datetime' => date("Y-m-d H:i:s"),
 			'IP' => $_SERVER['REMOTE_ADDR'],
-			'host' => gethostbyaddr($_SERVER['REMOTE_ADDR']),
+			//'host' => gethostbyaddr($_SERVER['REMOTE_ADDR']), // lelassítja a mentést
 			'screenWidth' => $_POST['screenWidth'],
 			'screenHeight' => $_POST['screenHeight'],
 			'httpUserAgent' => $_SERVER['HTTP_USER_AGENT'],
@@ -78,15 +80,17 @@ switch ($_GET['do']) {
 		echo $userId;
 		break;
 	case "fbupdate":
-		$data = array(
+		global $FACEBOOK_CREDENTIALS;
+		$fb = new FacebookConnect($FACEBOOK_CREDENTIALS);
+		/*$data = array(
 			'hasFbId' => true,
 			'userId' => $_POST['facebookId'],
 			'facebookFirstName' => (isset($_POST['fbFirstName'])?$_POST['fbFirstName']:null),
 			'facebookLastName' => (isset($_POST['fbLastName'])?$_POST['fbLastName']:null),
 			'facebookGender' => (isset($_POST['fbGender'])?$_POST['fbGender']:null)
 		);
-print_r($data);
-		$db->update(DBPREFIX.'data', $data, array('userId' => $_GET['userId']));
+
+		$db->update(DBPREFIX.'data', $data, array('userId' => $_GET['userId']));*/
 		break;
 	case "geoupdate":
 		$data = array(
