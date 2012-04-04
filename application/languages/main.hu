@@ -1,0 +1,18 @@
+[general]
+first = "Legelső"
+previous = "Előző"
+next = "Következő"
+last = "Legutolsó"
+
+[news]
+newsEmpty = "Nincs pályázat"
+
+[site]
+application = "Pályázat"
+applications = "Pályázati aktualitások"
+application_text = "Általános tudnivalók"
+application_view_uri = "palyazat"
+application_list_uri = "palyazatok"
+login = "belépés"
+username = "felhasználónév"
+password = "jelszó"

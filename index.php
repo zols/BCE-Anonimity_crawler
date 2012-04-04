@@ -4,6 +4,7 @@ error_reporting(E_ALL|E_STRICT);
 
 set_include_path(	'./application/configs' . PATH_SEPARATOR .
 					'./application/framework' . PATH_SEPARATOR .
+					'./application/site' . PATH_SEPARATOR .
 					'./application/plugins' . PATH_SEPARATOR .
 					get_include_path());
 
@@ -13,92 +14,81 @@ require_once('settings.front.inc.php');
 
 // TimeZone
 date_default_timezone_set(TIMEZONE);
-setlocale(LC_ALL, LOCALE);
 
 // Framework libraries
-//require_once('Registry.php');
-//require_once('Logger.php');
+require_once('Registry.php');
+require_once('Logger.php');
+require_once('Router.php');
 require_once('DatabaseManager.php');
-require_once('FacebookConnect.php');
+require_once('Translator.php');
+require_once('URIParser.php');
+//require_once('Menu.php');
 
-// Database
-$db = new DatabaseManager();
-//Registry::set('db', $db);
+// Smarty library
+require_once('Smarty/Smarty.class.php');
+require_once('smarty.front.inc.php');
+$smarty->assign('baseUrl',	BASE_URL);
+Registry::set('smarty', 	$smarty);
 
 // Logger
-//$logger = new Logger('./work/log-frontend/log_'.date('Ymd').'.log', LOG_FILTER_LEVEL, LOG_RESOLVE_IP);
-//Registry::set('logger', $logger);
+//Registry::set('logger', new Logger('./work/log-frontend/log_'.date('Ymd').'.log', LOG_FILTER_LEVEL, LOG_RESOLVE_IP));
 
-//Registry::get('logger')->writeLog("Teszt", 3);
-switch ($_GET['do']) {
-	case "save":
-		if (isset($_POST['userId'])) {
-			$userId = $_POST['userId'];
-		} else {
-			$userId = uniqid();
-		}
+// Database
+Registry::set('db', new DatabaseManager());
 
-		$data = array(
-			//'hasFbId' => (isset($_POST['hasFbId'])?$_POST['hasFbId']:false),
-			'userId' => $userId,
-			'facebookFirstName' => (isset($_POST['fbFirstName'])?$_POST['fbFirstName']:null),
-			'facebookLastName' => (isset($_POST['fbLastName'])?$_POST['fbLastName']:null),
-			'facebookGender' => (isset($_POST['fbGender'])?$_POST['fbGender']:null),
-			'datetime' => date("Y-m-d H:i:s"),
-			'IP' => $_SERVER['REMOTE_ADDR'],
-			//'host' => gethostbyaddr($_SERVER['REMOTE_ADDR']), // lelassítja a mentést
-			'screenWidth' => $_POST['screenWidth'],
-			'screenHeight' => $_POST['screenHeight'],
-			'httpUserAgent' => $_SERVER['HTTP_USER_AGENT'],
-			'browser' => $_POST['browser'],
-			'browserVersion' => $_POST['browserVersion'],
-			'os' => $_POST['os'],
-			'applicationCache' => ($_POST['applicationCache']=='true'?true:false),
-			'history' => ($_POST['history']=='true'?true:false),
-			'audio' => ($_POST['audio']=='true'?true:false),
-			'video' => ($_POST['video']=='true'?true:false),
-			'indexedDB' => ($_POST['indexedDB']=='true'?true:false),
-			'localStorage' => ($_POST['localStorage']=='true'?true:false),
-			'sessionStorage' => ($_POST['sessionStorage']=='true'?true:false),
-			'webSockets' => ($_POST['webSockets']=='true'?true:false),
-			'webSQLDatabase' => ($_POST['webSQLDatabase']=='true'?true:false),
-			'webWorkers' => ($_POST['webWorkers']=='true'?true:false),
-			'geoLocation' => ($_POST['geoLocation']=='true'?true:false),
-			'touch' => ($_POST['touch']=='true'?true:false),
-			'webGL' => ($_POST['webGL']=='true'?true:false),
-			'Flash' => (isset($_POST['Flash'])?$_POST['Flash']:null),
-			'Silverlight' => (isset($_POST['Silverlight'])?$_POST['Silverlight']:null),
-			'referrer' => $_POST['referrer'],
-			'connectionType' => $_POST['connectionType'],
-			'isGeo' => false,
-			'positionLatitude' => $_POST['positionLatitude'],
-			'positionLongitude' => $_POST['positionLongitude'],
-			'fonts' => (isset($_POST['fonts'])?$_POST['fonts']:null)
-		);
+// Translator
+$defaultTranslator = new Translator('main');
 
-		$db->insert(DBPREFIX.'data', $data);
-		echo $userId;
+Registry::set('translator',	$defaultTranslator);
+Registry::set('lang', 		$defaultTranslator->getCurrentLanguage());
+
+// Site specific
+//require_once('Site.php'); // Create abstract class
+
+// URIParser
+$defaultURIParser = new URIParser(BASE_URL);
+switch ($defaultURIParser->URIoutput()) {
+	case 200: // Proper controller or menu called
+		Registry::set('controller', $defaultURIParser->getControllerName());
+		Registry::set('action', 	$defaultURIParser->getActionName());
+		Registry::set('template', 	$defaultURIParser->getTemplateName());
+		Registry::set('params', 	$defaultURIParser->getParams());
+		Registry::set('dynID', 		$defaultURIParser->getDynID());
 		break;
-	case "fbupdate":
-		global $FACEBOOK_CREDENTIALS;
-		$fb = new FacebookConnect($FACEBOOK_CREDENTIALS);
-		/*$data = array(
-			'hasFbId' => true,
-			'userId' => $_POST['facebookId'],
-			'facebookFirstName' => (isset($_POST['fbFirstName'])?$_POST['fbFirstName']:null),
-			'facebookLastName' => (isset($_POST['fbLastName'])?$_POST['fbLastName']:null),
-			'facebookGender' => (isset($_POST['fbGender'])?$_POST['fbGender']:null)
-		);
-
-		$db->update(DBPREFIX.'data', $data, array('userId' => $_GET['userId']));*/
+	case 301: // IndexController
+		Registry::set('controller', 'index');
+		Registry::set('action', 	'index');
+		Registry::set('template', 	'index');
+		Registry::set('params', 	null);
 		break;
-	case "geoupdate":
-		$data = array(
-			'isGeo' => true,
-			'positionLatitude' => $_POST['positionLatitude'],
-			'positionLongitude' => $_POST['positionLongitude']
-		);
-
-		$db->update(DBPREFIX.'data', $data, array('userId' => $_GET['userId']), 1);
+	case 404: // Not found
+		break;
 }
+
+// Router
+if (Registry::isRegistered('controller')) {
+	try {
+		$router = new Router('./application/controllers');
+		$router->loader(Registry::get('controller'), Registry::get('action'));
+	} catch (Exception $e){
+		echo "Controller error: ".$e;
+	}
+}
+
+// Menu
+//$defaultMenu = new Menu();
+//Registry::get('smarty')->assign('menu', $defaultMenu->getMenuArray());
+
+// Languages
+//$smarty->assign('lang' , 	$defaultTranslator->getCurrentLanguage());
+//$smarty->assign('langtext',	$defaultTranslator->getCurrentTranslation());
+
+// Display
+$smarty->display('_header.tpl');
+if (Registry::isRegistered('template')) {
+	$smarty->display(Registry::get('template').".tpl");
+} else {
+		$smarty->display("404.tpl");
+}
+$smarty->display('_footer.tpl');
 ?>

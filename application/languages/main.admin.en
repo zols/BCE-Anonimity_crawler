@@ -1,0 +1,86 @@
+[general]
+loading = "Loading"
+
+[language]
+hu = "Hungarian"
+en = "English"
+
+[password]
+oldPassword = "Old password"
+newPassword = "New password"
+newPasswordAgain = "New password again"
+change = "Change"
+
+[uploader]
+uploadFile = "Upload file"
+
+[imagesort]
+uploadedImages = "Uploaded images"
+clipboard = "Clipboard"
+deletedElements = "Deleted elements"
+
+[dyn]
+type = "Type"
+dyn = "Content"
+mail = "E-mail"
+label = "Label"
+language = "Language"
+richTextEditor = "Rich Text Editor"
+title = "Title"
+metaKeywords = "Meta keywords"
+metaDescription = "Meta description"
+content = "Content"
+insertImage = "Insert image"
+imageSize = "Image size"
+imageSizeOriginal = "Original size"
+imageSizeThumbnail = "Thumbnail size"
+imageSizePolaroid = "Portrait size"
+imageSizeSmall = "Small size"
+directory = "Directory"
+imageSize = "Image size"
+searchFieldSet = "Search"
+deleteSearch = "Delete"
+h1 = "Header 1"
+h2 = "Header 2"
+h3 = "Header 3"
+
+[news]
+link = "Link"
+lead = "Lead"
+addNews = "Add news"
+searchFieldSet = "Search"
+deleteSearch = "Delete"
+socialPublish = "Publish on social sites"
+twitterDescription = "Posts the first 140 character of the title of the article on Twitter on adding a new article"
+facebookDescription = "Posts the first 420 character of the lead of the article on Facebook on adding a new article"
+more = "More"
+
+[file]
+delete = "Delete"
+
+[user]
+newUser = "New user"
+editUserDialog = "Edit user"
+changePasswordDialog = "Change password"
+realName = "Real name"
+loginName = "Login name"
+password = "Password"
+passwordAgain = "Password again"
+freeUp = "Free up"
+
+[title]
+admin = "Administration"
+
+[button]
+login = "Login"
+quit = "Quit"
+
+[label]
+login = "Login"
+password = "Password"
+album = "Album"
+savedAlbums = "Saved albums"
+saveDeleted = "Save deleted elements"
+newAlbum = "New album"
+saveAlbum = "Save album"
+loading = "Loading"

@@ -1,0 +1,86 @@
+[general]
+loading = "Töltés"
+
+[language]
+hu = "Magyar"
+en = "Angol"
+
+[password]
+oldPassword = "Régi jelszó"
+newPassword = "Új jelszó"
+newPasswordAgain = "Új jelszó mégegyszer"
+change = "Megváltoztat"
+
+[uploader]
+uploadFile = "File feltöltése"
+
+[imagesort]
+uploadedImages = "Feltöltött képek"
+clipboard = "Vágólap"
+deletedElements = "Törölt elemek"
+
+[dyn]
+type = "Típus"
+dyn = "Tartalom"
+mail = "E-mail"
+label = "Címke"
+language = "Nyelv"
+richTextEditor = "Szövegszerkesztő"
+title = "Cím"
+metaKeywords = "Meta kulcsszavak"
+metaDescription = "Meta leírás"
+content = "Tartalom"
+insertImage = "Kép beszúrása"
+imageSize = "Kép mérete"
+imageSizeOriginal = "Eredeti méret"
+imageSizeThumbnail = "Bélyegkép"
+imageSizePolaroid = "Fénykép méret"
+imageSizeSmall = "Kicsi méret"
+directory = "Könyvtár"
+imageSize = "Kép mérete"
+searchFieldSet = "Keresés"
+deleteSearch = "Törlés"
+h1 = "Fejléc 1"
+h2 = "Fejléc 2"
+h3 = "Fejléc 3"
+
+[news]
+link = "Link"
+lead = "Bevezető"
+addNews = "Új hír"
+searchFieldSet = "Keresés"
+deleteSearch = "Törlés"
+socialPublish = "Közösségi oldalakon közzétesz"
+twitterDescription = "A cím első 140 karakterét teszi közzé a Twitteren. Csak új cikk hozzáadásánál működik!"
+facebookDescription = "A bevezető első 420 karakterét teszi közzé a Facebookon. Csak új cikk hozzáadásánál működik!"
+more = "Tovább"
+
+[file]
+delete = "Törlés"
+
+[user]
+newUser = "Új felhasználó"
+editUserDialog = "Felhasználó adatainak módosítása"
+changePasswordDialog = "Jelszó megváltoztatása"
+realName = "Valódi név"
+loginName = "Bejelentkezési név"
+password = "Jelszó"
+passwordAgain = "Jelszó újra"
+freeUp = "Tartalmak felszabadítása"
+
+[title]
+admin = "Adminisztráció"
+
+[button]
+login = "Belépés"
+quit = "Kilépés"
+
+[label]
+login = "Login"
+password = "Jelszó"
+album = "Album"
+savedAlbums = "Elmentett albumok"
+saveDeleted = "Törölt elemek mentése"
+newAlbum = "Új album"
+saveAlbum = "Album mentése"
+loading = "Töltés"

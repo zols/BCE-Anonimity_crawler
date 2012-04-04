@@ -1,0 +1,14 @@
+RewriteEngine on
+AddDefaultCharset UTF-8
+
+#DirectoryIndex index.html index.php
+
+RewriteRule ^(sitemap\.xml|robots\.txt|index\.html) - [L]
+
+#RewriteCond %{REQUEST_URI} /$
+#RewriteRule .* index.html [L]
+
+RewriteRule .* index.php
+
+php_flag magic_quotes_gpc off
+php_flag register_globals off

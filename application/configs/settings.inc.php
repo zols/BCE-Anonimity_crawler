@@ -11,9 +11,9 @@ define('LOG_RESOLVE_IP', true);			// feloldja-e az IP-ket
 // Database
 define("DBPREFIX",		"su_");			// database prefix
 define("DBHOST", 		"localhost");	// database host
-define("DBNAME", 		"userspyder");	// database name
-define("DBUSERNAME",	"zbalogh");		// database username
-define("DBPASSWORD",	"zolszols");	// database password
+define("DBNAME", 		"slstemp");	// database name
+define("DBUSERNAME",	"slstemp");		// database username
+define("DBPASSWORD",	"78tFG65");	// database password
 
 // Social
 $FACEBOOK_CREDENTIALS = array(			// Facebook belépési kódok

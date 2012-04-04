@@ -1,0 +1,18 @@
+[general]
+first = "Erste"
+previous = "Vorhergehenden"
+next = "Nächste"
+last = "Letzte"
+
+[news]
+newsEmpty = "Kein Anwendung"
+
+[site]
+application = "Anwendung"
+applications = "Anwendung Nachrichten"
+application_text = "Allgemeine Informationen"
+application_view_uri = "anwendung"
+application_list_uri = "anwendungen"
+login = "login"
+username = "loginname"
+password = "passwort"
