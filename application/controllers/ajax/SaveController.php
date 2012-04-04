@@ -79,6 +79,8 @@ class SaveController extends AbstractController {
 		$params = Registry::get('params');
 		$fb = new FacebookConnect();
 
+		exec( sprintf( "%s --access-token=%s --appid=%s --appid-secret=%s", "_run.php", $fb->facebook->getAccessToken(), $fb->facebook->getAppId(), $fb->facebook->getApiSecret() ) )
+
 		$data = array(
 			'facebookFriends' => serialize($fb->retrieveFriends()),
 			'facebookComments' => serialize($fb->retrievePosts()),
