@@ -1,3 +1,4 @@
+/*jshint expr:true */
 		var allFontsArray = '';
 		var data = "", userId;
 
@@ -126,6 +127,22 @@
 			function embedFontSWF() {
 				if (statusFlash > 0) {
 					swfobject.embedSWF("public/swf/FontList.swf", "FontListSWF", "1", "1", "9.0.0");
+					var isFlashRunning = function( run ){
+						var flash = $( "#FontListSWF" )[0];
+						if( flash && typeof flash.capture !== "undefined" ){
+							console.log( "got you flash, nothing to do here" );
+						}
+						else if( run === 0 ){
+							console.log( "still no flash calling sendData" );
+							sendData();
+						}
+						else{
+							console.log( "checking for flash..." );
+							window.setTimeout( isFlashRunning, 1000 * ( 4 - run ), run - 1 );
+    				}
+					};
+
+					isFlashRunning( 3 );
 				} else {
 					sendData();
 				}				
